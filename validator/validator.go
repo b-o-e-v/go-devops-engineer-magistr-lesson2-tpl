@@ -16,7 +16,10 @@ var path string
 
 func Run(filename string) []error {
 	absPath, _ := filepath.Abs(filename)
-	path = filename
+	parentDir := filepath.Dir(filename)
+	relPath, _ := filepath.Rel(parentDir, filename)
+
+	path = relPath
 
 	content, err := os.ReadFile(absPath)
 
