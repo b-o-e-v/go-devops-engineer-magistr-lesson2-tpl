@@ -10,27 +10,17 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Usage: yamlvalid <filename>")
-		os.Exit(1)
+		panic("Usage: yamlvalid <filename>")
 	}
 
 	filename := os.Args[1]
 
 	dirname := filepath.Dir(filename)
-	relFilename, err := filepath.Rel(dirname, filename)
-
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+	relFilename, _ := filepath.Rel(dirname, filename)
 
 	if errs := validator.Run(relFilename); len(errs) != 0 {
 		for _, err := range errs {
 			fmt.Println(err)
 		}
-		os.Exit(1)
 	}
-
-	fmt.Println("Validation successful")
-	os.Exit(0)
 }
