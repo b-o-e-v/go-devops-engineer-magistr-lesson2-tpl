@@ -41,7 +41,7 @@ func validatePod(doc *yaml.Node) {
 	validate(doc, required, func(key, val *yaml.Node) {
 		switch key.Value {
 		case "apiVersion":
-			validateApiVersion(val)
+			validateAPIVersion(val)
 		case "kind":
 			validateKind(val)
 		case "metadata":
@@ -178,7 +178,7 @@ func validateLabels(node *yaml.Node) {
 	})
 }
 
-func validateApiVersion(node *yaml.Node) {
+func validateAPIVersion(node *yaml.Node) {
 	if node.Value != "v1" {
 		pushErr(NewUnsupportedValueError("apiVersion", node.Value, node.Line))
 	}
