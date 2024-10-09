@@ -22,11 +22,10 @@ func main() {
 		panic(fmt.Sprintf("%s does not exist", filename))
 	}
 
-	absFilename, _ := filepath.Abs(filename)
-	// dirname := filepath.Dir(filename)
-	// relFilename, _ := filepath.Rel(dirname, filename)
+	dirname := filepath.Dir(filename)
+	relFilename, _ := filepath.Rel(dirname, filename)
 
-	if errs := validator.Run(absFilename); len(errs) != 0 {
+	if errs := validator.Run(relFilename); len(errs) != 0 {
 		for _, err := range errs {
 			fmt.Println(err)
 		}

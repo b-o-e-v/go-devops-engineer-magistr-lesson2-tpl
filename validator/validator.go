@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strconv"
 	"strings"
@@ -14,9 +15,10 @@ import (
 var path string
 
 func Run(filename string) []error {
+	absPath, _ := filepath.Abs(filename)
 	path = filename
 
-	content, err := os.ReadFile(filename)
+	content, err := os.ReadFile(absPath)
 
 	if err != nil {
 		pushErr(fmt.Errorf("cannot read file content: %w", err))
